@@ -12,11 +12,22 @@ pipeline{
                 cleanWs()
             }
 
-        }
-    
-        stage("Checkout from SCM"){
+        }    
+        stage("Checkout Code"){
             steps {
                 git branch: 'main', credentialsId: 'github', url: 'https://github.com/kelvinduan2020/production-java-pipeline.git'
+            }
+
+        }   
+        stage("Build Application"){
+            steps {
+                sh 'maven clean package'
+            }
+
+        }   
+        stage("Test Application"){
+            steps {
+                sh 'maven test'
             }
 
         }
